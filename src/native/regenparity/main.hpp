@@ -8,6 +8,8 @@
 
 class RegenParityModule : public Module {
     public:
+    static void tickHungerAttributeDelegate(HungerAttributeDelegate*);
+    static void healForExhaustion(HungerAttributeDelegate*, Player*);
     RegenParityModule(): Module("regenparity") {}
     virtual void initialize();
 };
