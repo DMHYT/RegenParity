@@ -1,4 +1,5 @@
 #include <hook.h>
+#include <static_symbol.h>
 #include <symbol.h>
 
 #include <innercore/vtable.h>
@@ -20,7 +21,9 @@ void RegenParityModule::tickHungerAttributeDelegate(HungerAttributeDelegate* del
 		}
 		float currentHunger = delegate->_getInstance()->getCurrentValue();
 		delegate->prevFoodLevel = currentHunger;
-		bool naturalRegenEnabled = level->getGameRules()->getBool(GameRuleId(15));
+		STATIC_SYMBOL(GameRules_getBool, "_ZNK9GameRules7getBoolE10GameRuleId", (GameRules*, GameRuleId*), bool)
+    	GameRuleId naturalRegenID(15);
+		bool naturalRegenEnabled = GameRules_getBool(level->getGameRules(), &naturalRegenID);
 		float currentSaturation = player->getSaturation();
 		if(naturalRegenEnabled && currentSaturation > 0.0f && player->isHurt() && currentHunger >= 20.0f) {
 			++delegate->foodTimer;

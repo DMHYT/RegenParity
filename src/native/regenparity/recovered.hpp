@@ -25,13 +25,11 @@ class AttributeInstance {
 
 class GameRuleId {
     public:
+    char filler[4];
     GameRuleId(int);
 };
 
-class GameRules {
-    public:
-    bool getBool(GameRuleId) const;
-};
+class GameRules;
 
 class Level {
     public:
